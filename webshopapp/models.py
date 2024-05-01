@@ -1,5 +1,14 @@
 from django.db import models
 
+
+class basketItems(models.Model):
+    productId = models.IntegerField()
+    quantity = models.IntegerField()
+    totalLineprise = models.DecimalField(max_digits=10, decimal_places=2)
+    rebatePercent = models.DecimalField(max_digits=5, decimal_places=2)
+    giftWrapping = models.BooleanField()
+
+
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
