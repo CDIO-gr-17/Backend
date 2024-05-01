@@ -26,7 +26,7 @@ class Product(models.Model):
     upsellProductId = models.IntegerField()
     amountInStock = models.IntegerField()
     
-class Event(models.Model):
+class Customer(models.Model):
     customerNo = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)

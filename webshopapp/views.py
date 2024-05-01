@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, permissions
-from .models import Event, Customer, BasketItem
+from .models import Event, Customer, basketItems, Order
 from .serializers import EventSerializer
 from django.db import transaction
 
@@ -45,8 +45,13 @@ class EventCreateView(generics.CreateAPIView):
                     rebate_percent=item['rebatePercent'],
                     total_line_price=item['totalLinePrice'],
                     giftwrapping=item['giftwrapping'],
-                    customer=customer
                 )
+
+            order = Order.objects.create(
+                customer=customer,
+                basketLine=basket_item
+            )
+            orders.append(order)
 
             # Optionally, create or update an Event instance if needed
             # Event-specific data handling here
