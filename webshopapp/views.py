@@ -7,7 +7,7 @@ from django.db import transaction
 
 @api_view(['GET'])
 class EventCreateView(generics.CreateAPIView):
-    queryset = Event.objects.all()
+    # queryset = Event.objects.all()
     serializer_class = EventSerializer
     # permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['post']
