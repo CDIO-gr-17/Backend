@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Event
+from .models import Customer
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Event
+        model = Customer
         fields = '__all__'

@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, permissions
-from .models import Event, Customer, basketItems, Order
+from .models import Customer, BasketItem, Order
 from .serializers import EventSerializer
 from django.db import transaction
 
@@ -64,6 +64,6 @@ class EventCreateView(generics.CreateAPIView):
 #     http_method_names = ['post']
 
 class EventListView(generics.ListAPIView):
-    queryset = Event.objects.all()
+    #queryset = Event.objects.all()
     serializer_class = EventSerializer
     http_method_names = ['get']
