@@ -1,6 +1,14 @@
 from django.db import models
 
-
+class Product(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    currency = models.CharField(max_length=3)
+    rebateQuantity = models.IntegerField()
+    rebatePercent = models.DecimalField(max_digits=5, decimal_places=2)
+    upsellProductId = models.IntegerField()
+    amountInStock = models.IntegerField()
     
 class Event(models.Model):
     first_name = models.CharField(max_length=255)
