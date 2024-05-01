@@ -26,7 +26,14 @@ class EventCreateView(generics.CreateAPIView):
                 zip_code=customer_data['zip_code'],
                 country=customer_data['country'],
                 telephone_number=customer_data['telephone_number'],
-                order_comment=customer_data.get('order_comment', '')
+                order_comment=customer_data.get('order_comment', ''),
+                vat=customer_data.get('vat', ''),
+                business_name=customer_data.get('business_name', ''),
+                delivery_address1=customer_data.get('delivery_address1', ''),
+                delivery_address2=customer_data.get('delivery_address2', ''),
+                delivery_city=customer_data.get('delivery_city', ''),
+                delivery_country=customer_data.get('delivery_country', ''),
+                delivery_zip=customer_data.get('delivery_zip', '')
             )
 
             # Extracting and creating BasketItem data
