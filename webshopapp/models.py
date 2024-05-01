@@ -1,33 +1,20 @@
 from django.db import models
 
-
-class Order(models.Model):
-    orderNumber = models.AutoField(primary_key=True)
-    customerNo = models.ForeignKey('Event', on_delete=models.CASCADE)
-    basketLineId = models.ForeignKey('basketItems', on_delete=models.CASCADE)
-    
-
-class basketItems(models.Model):
-    basketItemId = models.AutoField(primary_key=True)
-    productId = models.ForeignKey('Product', on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    totalLineprice = models.DecimalField(max_digits=10, decimal_places=2)
-    rebatePercent = models.DecimalField(max_digits=5, decimal_places=2)
-    giftWrapping = models.BooleanField()
-
-
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3)
-    rebateQuantity = models.IntegerField()
-    rebatePercent = models.DecimalField(max_digits=5, decimal_places=2)
-    upsellProductId = models.IntegerField()
-    amountInStock = models.IntegerField()
-    
+    rebate_quantity = models.IntegerField()
+    rebate_percent = models.DecimalField(max_digits=5, decimal_places=2)
+    upsell_product_id = models.IntegerField()
+    amount_in_stock = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.name} - {self.currency} {self.price}"
+
 class Customer(models.Model):
-    customerNo = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     country = models.CharField(max_length=100)
@@ -36,7 +23,7 @@ class Customer(models.Model):
     zip_code = models.CharField(max_length=12)
     city = models.CharField(max_length=100)
     email = models.EmailField()
-    telephone_number = models.CharField(max_length=20)
+    telephone_number = models.CharField(max_length=20, blank=True, null=True)
     order_comment = models.TextField(blank=True, null=True)
     business_name = models.CharField(max_length=255, blank=True, null=True)
     vat = models.CharField(max_length=50, blank=True, null=True)
@@ -48,3 +35,22 @@ class Customer(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.email}"
+
+class BasketItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    total_line_price = models.DecimalField(max_digits=10, decimal_places=2)
+    rebate_percent = models.DecimalField(max_digits=5, decimal_places=2)
+    gift_wrapping = models.BooleanField()
+
+    def __str__(self):
+        return f"{self.product.name} - Qty: {self.quantity}"
+
+class Order(models.Model):
+    order_number = models.AutoField(primary_key=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    basket_line = models.ForeignKey(BasketItem, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Order {self.order_number} for {self.customer}"

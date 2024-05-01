@@ -5,16 +5,18 @@ from .models import Event, Customer, basketItems, Order
 from .serializers import EventSerializer
 from django.db import transaction
 
-@api_view(['GET'])
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from django.db import transaction
+from .models import Customer, BasketItem, Order
+from .serializers import EventSerializer
+
 class EventCreateView(generics.CreateAPIView):
-    # queryset = Event.objects.all()
     serializer_class = EventSerializer
-    # permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['post']
 
     def create(self, request, *args, **kwargs):
         with transaction.atomic():
-            # Extracting Customer data
             customer_data = request.data['customerInfo']
             customer = Customer.objects.create(
                 first_name=customer_data['first_name'],
@@ -25,7 +27,7 @@ class EventCreateView(generics.CreateAPIView):
                 city=customer_data['city'],
                 zip_code=customer_data['zip_code'],
                 country=customer_data['country'],
-                telephone_number=customer_data['telephone_number'],
+                telephone_number=customer_data.get('telephone_number', ''),
                 order_comment=customer_data.get('order_comment', ''),
                 vat=customer_data.get('vat', ''),
                 business_name=customer_data.get('business_name', ''),
@@ -36,28 +38,24 @@ class EventCreateView(generics.CreateAPIView):
                 delivery_zip=customer_data.get('delivery_zip', '')
             )
 
-            # Extracting and creating BasketItem data
+            orders = []
             basket_items_data = request.data['basketItems']
             for item in basket_items_data:
-                BasketItem.objects.create(
+                basket_item = BasketItem.objects.create(
                     product_id=item['productId'],
                     quantity=item['quantity'],
                     rebate_percent=item['rebatePercent'],
                     total_line_price=item['totalLinePrice'],
-                    giftwrapping=item['giftwrapping'],
+                    giftwrapping=item['giftwrapping']
                 )
+                order = Order.objects.create(
+                    customer=customer,
+                    basketLine=basket_item
+                )
+                orders.append(order)
 
-            order = Order.objects.create(
-                customer=customer,
-                basketLine=basket_item
-            )
-            orders.append(order)
+            return Response({"status": "success", "orders": [order.orderNumber for order in orders]})
 
-            # Optionally, create or update an Event instance if needed
-            # Event-specific data handling here
-            # event_instance = handle_event_creation_or_updating()
-
-        return Response({"status": "success"})
 
 # class EventCreateView(generics.CreateAPIView):
 #     queryset = Event.objects.all()
