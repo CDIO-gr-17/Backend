@@ -145,6 +145,6 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # The URL of the frontend that needs to access your API
-    'http://127.0.0.1:3000',
+    'https://localhost:3000',  # The URL of the frontend that needs to access your API
+    'https://127.0.0.1:3000',
 ]

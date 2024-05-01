@@ -1,22 +1,6 @@
 from django.db import models
 
 #      Create your models here.
-# class Event(models.Model):
-#     about = models.TextField()
-#     event_id = models.CharField(max_length=255)
-#     workflow_id = models.CharField(max_length=255)
-#     owner_id = models.CharField(max_length=255)
-#     deployment_id = models.CharField(max_length=255)
-#     timestamp = models.DateTimeField()
-#     inspect_url = models.URLField()
-#     quickstart_url = models.URLField()
-
-
-
-
-#     def __str__(self):
-#         return self.about
-    
 class Event(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
