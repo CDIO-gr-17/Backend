@@ -56,13 +56,6 @@ class EventCreateView(generics.CreateAPIView):
 
             return Response({"status": "success"})
 
-
-# class EventCreateView(generics.CreateAPIView):
-#     queryset = Event.objects.all()
-#     serializer_class = EventSerializer
-#     # permission_classes = [permissions.IsAuthenticated]
-#     http_method_names = ['post']
-
 class EventListView(generics.ListAPIView):
     #queryset = Event.objects.all()
     serializer_class = EventSerializer
