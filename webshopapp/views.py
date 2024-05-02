@@ -46,15 +46,15 @@ class EventCreateView(generics.CreateAPIView):
                     quantity=item['quantity'],
                     rebate_percent=item['rebatePercent'],
                     total_line_price=item['totalLinePrice'],
-                    giftwrapping=item['giftwrapping']
+                    gift_wrapping=item['giftwrapping']
                 )
                 order = Order.objects.create(
                     customer=customer,
-                    basketLine=basket_item
+                    basket_line=basket_item
                 )
                 orders.append(order)
 
-            return Response({"status": "success", "orders": [order.orderNumber for order in orders]})
+            return Response({"status": "success"})
 
 class EventListView(generics.ListAPIView):
     #queryset = Event.objects.all()
