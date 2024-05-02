@@ -50,7 +50,7 @@ class EventCreateView(generics.CreateAPIView):
 
             return Response({"status": "success"})
 
-class EventListView(generics.ListAPIView):
+class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     http_method_names = ['get']
