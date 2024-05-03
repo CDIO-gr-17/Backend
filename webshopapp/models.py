@@ -5,10 +5,10 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3)
-    rebate_quantity = models.IntegerField()
-    rebate_percent = models.DecimalField(max_digits=5, decimal_places=2)
-    upsell_product_id = models.IntegerField()
-    amount_in_stock = models.IntegerField()
+    rebateQuantity = models.IntegerField()
+    rebatePercent = models.DecimalField(max_digits=5, decimal_places=2)
+    upsellProductId = models.IntegerField()
+    amountInStock = models.IntegerField()
 
     def __str__(self):
         return f"{self.name} - {self.currency} {self.price}"
