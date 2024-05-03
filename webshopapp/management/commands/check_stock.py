@@ -6,6 +6,9 @@ class Command(BaseCommand):
   help = 'Check stock levels and send Discord notifications'
 
   def handle(self, *args, **options):
+    # Define the Discord webhook URL (replace with your actual URL)
+    webhook_url = "https://discord.com/api/webhooks/1235581621386608691/n7k-3-Q_3nACH6U98pP4BIxwszbGKyYNSpgt2GfhkfphFPvPigUxmIW7drzXKlfxB5Fd"
+
     low_stock_products = Product.objects.filter(amount_in_stock__lt=5)
 
     if low_stock_products:  # Check if any products have low stock
@@ -19,8 +22,6 @@ class Command(BaseCommand):
       print("Successfully sent notification for low-stock products.")
     else:
       print("No products with low stock found.")
-
-    # Removed the initial message sending "Checking stock levels..."
 
 if __name__ == "__main__":
   # Execute the command
