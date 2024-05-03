@@ -10,7 +10,7 @@ class Command(BaseCommand):
     webhook_url = "https://discord.com/api/webhooks/1235581621386608691/n7k-3-Q_3nACH6U98pP4BIxwszbGKyYNSpgt2GfhkfphFPvPigUxmIW7drzXKlfxB5Fd"
 
     low_stock_products = Product.objects.filter(amountInStock__lt=5)
-    super_low_stock_products = Product.objects.filter(amountInStock__lt=1)
+    super_low_stock_products = Product.objects.filter(amountInStock = 0)
 
     if low_stock_products:  # Check if any products have low stock
       message = "**Low Stock Products:**\n"
