@@ -29,7 +29,7 @@ class EventCreateView(generics.CreateAPIView):
                 basket_item = basket_item_serializer.save()
 
                 # Retrieve the product and update its warehouse quantity
-                product = Product.objects.get(id=basket_item.product.id)
+                product = Product.objects.get(id=basket_item.productId.id)
                 product.amount_in_stock -= basket_item.quantity
                 product.save()
 
