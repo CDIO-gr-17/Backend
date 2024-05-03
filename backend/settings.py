@@ -27,30 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['dtu62597.eduhost.dk', 'localhost', '130.225.170.52.local']
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/django.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'myapp': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
-
 # Application definition
 
 INSTALLED_APPS = [
