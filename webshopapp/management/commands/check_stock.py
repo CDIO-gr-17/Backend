@@ -6,20 +6,22 @@ class Command(BaseCommand):
   help = 'Check stock levels and send Discord notifications'
 
   def handle(self, *args, **options):
-    low_stock_products = Product.objects.filter(amount_in_stock__lt=5)
-    webhook_url = "https://discord.com/api/webhooks/1235581621386608691/n7k-3-Q_3nACH6U98pP4BIxwszbGKyYNSpgt2GfhkfphFPvPigUxmIW7drzXKlfxB5Fd"  # Replace with your actual webhook URL
-    requests.post(webhook_url, json = {"content": "Checking stock levels..."})
+    # Define the Discord webhook URL (replace with your actual URL)
+    webhook_url = "https://discord.com/api/webhooks/1235581621386608691/n7k-3-Q_3nACH6U98pP4BIxwszbGKyYNSpgt2GfhkfphFPvPigUxmIW7drzXKlfxB5Fd"
 
-    for product in low_stock_products:
-        message = f"Product ID: {product.id}, Product Name: {product.name}, Amount in Stock: {product.amount_in_stock}"
-        payload = {"content": message}  # Payload for Discord notification
-        requests.post(webhook_url, json=payload)
-        try:
-            response = requests.post(webhook_url, json=payload)
-            response.raise_for_status()  # Raise exception for non-2xx response codes
-            print(f"Successfully sent Discord notification for product ID: {product.id}")
-        except requests.exceptions.RequestException as e:
-            print(f"Error sending Discord notification: {e}")
+    low_stock_products = Product.objects.filter(amount_in_stock__lt=5)
+
+    if low_stock_products:  # Check if any products have low stock
+      message = "**Low Stock Products:**\n"
+      for product in low_stock_products:
+          message += f"- Product ID: {product.id}, Product Name: {product.name}, Amount in Stock: {product.amount_in_stock}\n"
+
+      payload = {"content": message}
+      response = requests.post(webhook_url, json=payload)
+      response.raise_for_status()  # Raise exception for non-2xx response codes
+      print("Successfully sent notification for low-stock products.")
+    else:
+      print("No products with low stock found.")
 
 if __name__ == "__main__":
   # Execute the command
