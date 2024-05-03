@@ -27,8 +27,9 @@ class Command(BaseCommand):
 
     if super_low_stock_products:  # Check if any products have super low stock
       for product in super_low_stock_products:
-        product.amount_in_stock = 10  # Reset the stock level to 10
+        product.amountInStock = 10  # Reset the stock level to 10
         product.save()
+
 
 if __name__ == "__main__":
   # Execute the command
