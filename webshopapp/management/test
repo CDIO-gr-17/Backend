@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Define the order and chart info
+declare -A order=(
+    [stock_chart]="stock"
+)
+declare -A chart=(
+    [stock_chart]=""
+)
+declare -A dimensions=(
+    [stock]="stock"
+)
+
+check_stock_chart() {
+    cat <<EOF
+CHART stock_chart '' "Product Stock" "quantity" "stock" "" line 60001 1
+DIMENSION stock '' absolute 1 1
+EOF
+
+    return 0
+}
+
+# Collect function
+check_stock_collect() {
+    echo "starting"
+    local data
+    source /webserver/webshopdir/webshopenv/bin/activate
+    readarray -t data < <(python /webserver/webshopdir/Backend/manage.py check_stock)
+    local stock="${data[0]}"
+
+
+    cat <<VALUESEOF
+BEGIN stock_chart
+SET stock = $stock
+END
+VALUESEOF
+
+    return 0
+}
+
+# Detection function
+check_stock_detection() {
+    return 0
+}
+
+# Cleanup function
+check_stock_cleanup() {
+    return 0
+}
+
+check_stock_chart
+check_stock_collect
