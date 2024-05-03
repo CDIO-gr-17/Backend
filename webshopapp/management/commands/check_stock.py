@@ -9,13 +9,13 @@ class Command(BaseCommand):
     # Define the Discord webhook URL (replace with your actual URL)
     webhook_url = "https://discord.com/api/webhooks/1235581621386608691/n7k-3-Q_3nACH6U98pP4BIxwszbGKyYNSpgt2GfhkfphFPvPigUxmIW7drzXKlfxB5Fd"
 
-    low_stock_products = Product.objects.filter(amount_in_stock__lt=5)
-    super_low_stock_products = Product.objects.filter(amount_in_stock__lt=0)
+    low_stock_products = Product.objects.filter(amountInStock__lt=5)
+    super_low_stock_products = Product.objects.filter(amountInStock__lt=0)
 
     if low_stock_products:  # Check if any products have low stock
       message = "**Low Stock Products:**\n"
       for product in low_stock_products:
-          message += f"- Product ID: {product.id}, Product Name: {product.name}, Amount in Stock: {product.amount_in_stock}\n"
+          message += f"- Product ID: {product.id}, Product Name: {product.name}, Amount in Stock: {product.amountInStock}\n"
 
 
       payload = {"content": message}
