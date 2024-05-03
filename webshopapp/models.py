@@ -38,11 +38,12 @@ class Customer(models.Model):
 
 class BasketItem(models.Model):
     id = models.AutoField(primary_key=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    productId = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    total_line_price = models.DecimalField(max_digits=10, decimal_places=2)
-    rebate_percent = models.DecimalField(max_digits=5, decimal_places=2)
-    gift_wrapping = models.BooleanField()
+    totalLinePrice = models.DecimalField(max_digits=10, decimal_places=2)
+    rebatePercent = models.DecimalField(max_digits=5, decimal_places=2)
+    giftwrapping = models.BooleanField()
+    order = models.ForeignKey('Order', related_name='basket_items', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.product.name} - Qty: {self.quantity}"
@@ -50,7 +51,6 @@ class BasketItem(models.Model):
 class Order(models.Model):
     order_number = models.AutoField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    basket_line = models.ForeignKey(BasketItem, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Order {self.order_number} for {self.customer}"
