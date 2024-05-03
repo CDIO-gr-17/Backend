@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
             name='Customer',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('first_name', models.CharField(max_length=255)),
                 ('last_name', models.CharField(max_length=255)),
                 ('country', models.CharField(max_length=100)),
@@ -24,6 +25,7 @@ class Migration(migrations.Migration):
                 ('zip_code', models.CharField(max_length=12)),
                 ('city', models.CharField(max_length=100)),
                 ('email', models.EmailField(max_length=254)),
+                ('telephone_number', models.CharField(blank=True, max_length=20, null=True)),
                 ('telephone_number', models.CharField(blank=True, max_length=20, null=True)),
                 ('order_comment', models.TextField(blank=True, null=True)),
                 ('business_name', models.CharField(blank=True, max_length=255, null=True)),
