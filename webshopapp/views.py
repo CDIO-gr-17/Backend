@@ -28,6 +28,11 @@ class EventCreateView(generics.CreateAPIView):
                 basket_item_serializer.is_valid(raise_exception=True)
                 basket_item_serializer.save()
 
+                # Retrieve the product and update its warehouse quantity
+                product = Product.objects.get(id=item.product.id)
+                product.amount_in_stock -= item.quantity
+                product.save()
+
             return Response({
                 "status": "success",
                 "order_number": order.order_number,
