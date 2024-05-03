@@ -1,7 +1,17 @@
 from rest_framework import serializers
-from .models import Event
+from .models import Customer, BasketItem, Product, Order, Product
 
-class EventSerializer(serializers.ModelSerializer):
+class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Event
+        model = Customer
+        fields = '__all__'
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+class BasketItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BasketItem
         fields = '__all__'
