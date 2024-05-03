@@ -3,7 +3,6 @@ from rest_framework import generics
 from .models import Order
 from .serializers import CustomerSerializer, BasketItemSerializer
 from django.db import transaction
-from rest_framework import status
 
 class EventCreateView(generics.CreateAPIView):
     http_method_names = ['post']
