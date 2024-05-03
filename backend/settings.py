@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['dtu62597.eduhost.dk', 'localhost', '130.225.170.52.local']
 
-
 # Application definition
 
 INSTALLED_APPS = [
